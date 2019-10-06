@@ -17,6 +17,7 @@ kickoff_optimization <- function(SPORT = NULL, PLATFORM = NULL,
                                  MAX_EXP = NULL, MAX_REPEATED_PLAYERS = NULL) {
   
   # get and tidy salary info
+  browser()
   salaries <- parse_salaries(path = SALARY_PATH, sport = SPORT, platform = PLATFORM)
   salaries <- add_tidy_teamabbrev(salaries, sport = SPORT, platform = PLATFORM)
   salaries <- add_tidy_position(salaries, sport = SPORT, platform = PLATFORM)
@@ -42,7 +43,7 @@ kickoff_optimization <- function(SPORT = NULL, PLATFORM = NULL,
   entries <- parse_entries(ENTRY_PATH, sport = SPORT, platform = PLATFORM)
   entries <- add_tidy_contest(entries, sport = SPORT, platform = PLATFORM)
   entries <- add_tidy_entry(entries, sport = SPORT, platform = PLATFORM)
-  LINEUPS <- max(table(entries$tidy_contest)) * LU_MULT
+  LINEUPS <- round(max(table(entries$tidy_contest)) * LU_MULT)
   
   # optimize
   optim_path <- system.file('python', 'optimizer.py', package = 'dfstools')
