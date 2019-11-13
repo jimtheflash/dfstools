@@ -4,12 +4,24 @@
 \alias{get_rotogrinders_projections}
 \title{Get dfs player projections from Rotogrinders.com}
 \usage{
-get_rotogrinders_projections(sport = NULL, platform = NULL)
+get_rotogrinders_projections(sport = NULL, platform = NULL,
+  from_csv = NULL, supported_sports = c("nba", "nfl"),
+  csv_headers = c("name", "salary", "teamabbrev", "position", "opponent",
+  "ceiling", "floor", "proj"), nfl_positions = c("qb", "rb", "wr", "te",
+  "defense", "kicker"))
 }
 \arguments{
 \item{sport}{character, which sport to use? supports nfl so far, with nba on the way}
 
 \item{platform}{character, which dfs platform to use? supports draftkings so far, with fanduel on the way}
+
+\item{from_csv}{character, if not NULL then path to the csv with projections}
+
+\item{supported_sports}{character vector of leagues supported}
+
+\item{csv_headers}{character, names of the columns in rotogrinders csv's}
+
+\item{nfl_positions}{character, position names}
 }
 \value{
 data.frame of players and projections for selected platform

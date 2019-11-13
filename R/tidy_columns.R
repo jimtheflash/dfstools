@@ -16,7 +16,7 @@ add_tidy_teamabbrev <- function(df = NULL,
   target <- paste0(sport, '_teamabbrev')
   # subset lookup table for joining
   lu_sub <- lu[, c(target, platform_col)]
-  
+  lu_sub <- lu_sub[!is.na(lu_sub[[target]]), ]
   # set the column in df based on platform and sport
   if (platform == 'draftkings') {
     column <- 'TeamAbbrev'

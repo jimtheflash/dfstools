@@ -9,9 +9,9 @@ parse_salaries(path = NULL, sport = NULL, platform = NULL)
 \arguments{
 \item{path}{character, path to salary file}
 
-\item{sport}{character, which sports league? Supports nfl, nba on the way}
+\item{sport}{character, which sports league? Supports nfl and nba for draftkings}
 
-\item{platform}{charcter, which dfs platform? Supports draftkings, fanduel on the way}
+\item{platform}{charcter, which dfs platform? Supports draftkings}
 }
 \value{
 data.frame of players with salary info

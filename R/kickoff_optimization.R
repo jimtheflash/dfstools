@@ -4,6 +4,7 @@
 #' @param PROJECTIONS character, which projections to use
 #' @param PROJ_COL character, which column in projections
 #' @param LU_MULT numeric, LU_MULT * number of entries = number of lineups generated
+#' @param PROJ_PATH character, path to projections csv
 #' @param SALARY_PATH character, path to player salary csv
 #' @param ENTRY_PATH character, path to entry csv
 #' @param TEMP_PATH character, path to directory for writing temp files
@@ -13,11 +14,10 @@
 #' @export
 kickoff_optimization <- function(SPORT = NULL, PLATFORM = NULL, 
                                  PROJECTIONS = NULL, PROJ_COL = NULL, LU_MULT = NULL,
-                                 SALARY_PATH = NULL, ENTRY_PATH = NULL, TEMP_PATH = NULL,
+                                 PROJ_PATH = NULL, SALARY_PATH = NULL, ENTRY_PATH = NULL, TEMP_PATH = NULL,
                                  MAX_EXP = NULL, MAX_REPEATED_PLAYERS = NULL) {
   
   # get and tidy salary info
-  browser()
   salaries <- parse_salaries(path = SALARY_PATH, sport = SPORT, platform = PLATFORM)
   salaries <- add_tidy_teamabbrev(salaries, sport = SPORT, platform = PLATFORM)
   salaries <- add_tidy_position(salaries, sport = SPORT, platform = PLATFORM)
@@ -25,7 +25,7 @@ kickoff_optimization <- function(SPORT = NULL, PLATFORM = NULL,
   
   # get projections
   if (PROJECTIONS == 'rotogrinders') {
-    projections <- get_rotogrinders_projections(sport = SPORT, platform = PLATFORM) 
+    projections <- get_rotogrinders_projections(sport = SPORT, platform = PLATFORM, from_csv = PROJ_PATH) 
   }
   # tidy projections
   projections <- add_tidy_teamabbrev(projections, sport = SPORT, platform = PROJECTIONS)
@@ -47,7 +47,7 @@ kickoff_optimization <- function(SPORT = NULL, PLATFORM = NULL,
   
   # optimize
   optim_path <- system.file('python', 'optimizer.py', package = 'dfstools')
-  optim_string <- paste0('/anaconda3/bin/python ', optim_path, ' ', #execute the optimizer
+  optim_string <- paste0('/Users/jim/anaconda3/bin/python ', optim_path, ' ', #execute the optimizer
                          to_optim_path, ' ', #arg1=location of salary info for optimizin
                          PLATFORM, ' ', #arg2=platform, i.e. site, for entering these lineups
                          SPORT, ' ', #arg3=sport, i.e. professional sporting league

@@ -6,8 +6,8 @@
 \usage{
 kickoff_optimization(SPORT = NULL, PLATFORM = NULL,
   PROJECTIONS = NULL, PROJ_COL = NULL, LU_MULT = NULL,
-  SALARY_PATH = NULL, ENTRY_PATH = NULL, TEMP_PATH = NULL,
-  MAX_EXP = NULL, MAX_REPEATED_PLAYERS = NULL)
+  PROJ_PATH = NULL, SALARY_PATH = NULL, ENTRY_PATH = NULL,
+  TEMP_PATH = NULL, MAX_EXP = NULL, MAX_REPEATED_PLAYERS = NULL)
 }
 \arguments{
 \item{SPORT}{character, which dfs sport/league}
@@ -19,6 +19,8 @@ kickoff_optimization(SPORT = NULL, PLATFORM = NULL,
 \item{PROJ_COL}{character, which column in projections}
 
 \item{LU_MULT}{numeric, LU_MULT * number of entries = number of lineups generated}
+
+\item{PROJ_PATH}{character, path to projections csv}
 
 \item{SALARY_PATH}{character, path to player salary csv}
 
