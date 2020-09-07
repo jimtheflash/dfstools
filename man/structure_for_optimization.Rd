@@ -4,8 +4,12 @@
 \alias{structure_for_optimization}
 \title{Prepare a file for dfs optimization}
 \usage{
-structure_for_optimization(salaries = NULL, projections = NULL,
-  platform = NULL, sport = NULL)
+structure_for_optimization(
+  salaries = NULL,
+  projections = NULL,
+  platform = NULL,
+  sport = NULL
+)
 }
 \arguments{
 \item{salaries}{data.frame of salary data}

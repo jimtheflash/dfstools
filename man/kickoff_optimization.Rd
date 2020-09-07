@@ -4,10 +4,19 @@
 \alias{kickoff_optimization}
 \title{Kickoff dfs optimization pipeline}
 \usage{
-kickoff_optimization(SPORT = NULL, PLATFORM = NULL,
-  PROJECTIONS = NULL, PROJ_COL = NULL, LU_MULT = NULL,
-  PROJ_PATH = NULL, SALARY_PATH = NULL, ENTRY_PATH = NULL,
-  TEMP_PATH = NULL, MAX_EXP = NULL, MAX_REPEATED_PLAYERS = NULL)
+kickoff_optimization(
+  SPORT = NULL,
+  PLATFORM = NULL,
+  PROJECTIONS = NULL,
+  PROJ_COL = NULL,
+  LU_MULT = NULL,
+  PROJ_PATH = NULL,
+  SALARY_PATH = NULL,
+  ENTRY_PATH = NULL,
+  TEMP_PATH = NULL,
+  MAX_EXP = NULL,
+  MAX_REPEATED_PLAYERS = NULL
+)
 }
 \arguments{
 \item{SPORT}{character, which dfs sport/league}

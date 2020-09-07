@@ -4,8 +4,7 @@
 \alias{add_tidy_playernames}
 \title{Append column of tidy player names}
 \usage{
-add_tidy_playernames(df, lookup = NULL, platform = NULL,
-  sport = NULL)
+add_tidy_playernames(df, lookup = NULL, platform = NULL, sport = NULL)
 }
 \arguments{
 \item{df}{data.frame with player column}

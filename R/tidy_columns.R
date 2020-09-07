@@ -5,10 +5,10 @@
 #' @param sport character, which sport
 #' @return data.frame with column "tidy_teamabbrev" appended for easier joining
 #' @export
-add_tidy_teamabbrev <- function(df = NULL, 
-                                lookup = system.file('extdata', 'teamabbrev_lu.csv', package = 'dfstools'), 
+add_tidy_teamabbrev <- function(df = NULL,
+                                lookup = system.file('extdata', 'teamabbrev_lu.csv', package = 'dfstools'),
                                 platform = NULL, sport = NULL) {
-  
+
   # read the lookup table
   lu <- read.csv(lookup, stringsAsFactors = FALSE)
   # engineer the platform team abbreviation column names
@@ -24,19 +24,19 @@ add_tidy_teamabbrev <- function(df = NULL,
   if (platform == 'fanduel') {
     column <- 'Team'
   }
-  if (platform == 'rotogrinders') {
+  if (platform %in% c('fantasypros', 'rotogrinders')) {
     column <- 'teamabbrev'
     }
-  
+
   # create a column that overlaps across tables
   df[[platform_col]] <- df[[column]]
-  
+
   # merge
   merged <- merge(df, lu_sub)
   # tidy
   merged$tidy_teamabbrev <- tolower(trimws(merged[[target]]))
   merged[[target]] <- NULL
-  
+
   # return
   return(merged)
 }
@@ -48,7 +48,7 @@ add_tidy_teamabbrev <- function(df = NULL,
 #' @param sport character, which sport
 #' @return data.frame with column "tidy_playername" appended for easier joining
 #' @export
-add_tidy_playernames <- function(df, 
+add_tidy_playernames <- function(df,
                                  lookup = NULL,
                                  platform = NULL, sport = NULL) {
   # set the column in df based on platform and sport
@@ -58,21 +58,20 @@ add_tidy_playernames <- function(df,
   if (platform == 'fanduel') {
     column <- 'Nickname'
   }
-  if (platform == 'rotogrinders') {
+  if (platform %in% c('fantasypros', 'rotogrinders')) {
     column <- 'name'
   }
-  
+
   # tidy
-  #### if its nfl dst, get only the team name, rather than location-name, by extracting last element of space-delimited string
+  #### if its nfl dst, combine the tidy_teamabbrev and tidy_position as the tidy_playername
   if (sport == 'nfl') {
-    if (is.null(df$tidy_position)) {
-      stop('run add_tidyposition prior to this step')
+    if (is.null(df$tidy_position) | is.null(df$tidy_teamabbrev)) {
+      stop('run add_tidyposition() and add_tidy_teamabbrev() prior to this step')
     }
-    last_nameparts <- unlist(lapply(strsplit(df[[column]], ' '),
-                             function(x) `[[`(x, length(x))))
-    df[[column]] <- ifelse(df$tidy_position == 'dst', last_nameparts, df[[column]])
+    dst_tidynames <- paste0(df$tidy_teamabbrev, df$tidy_position)
+    df[[column]] <- ifelse(df$tidy_position == 'dst', dst_tidynames, df[[column]])
   }
-  
+
   df$tidy_playername <- tolower(trimws(df[[column]]))
   df$tidy_playername <- gsub("[^[:alnum:]]", "", df$tidy_playername)
   df$tidy_playername <- gsub("jr$|sr$|iv$|iii$|ii$", "", df$tidy_playername)
@@ -86,10 +85,10 @@ add_tidy_playernames <- function(df,
 #' @param sport character, which sport
 #' @return data.frame with column "tidy_position" appended for easier joining
 #' @export
-add_tidy_position <- function(df, 
-                              lookup = NULL, 
+add_tidy_position <- function(df,
+                              lookup = NULL,
                               platform = NULL, sport = NULL) {
-  
+
   # set the column in df based on platform and sport
   if (platform == 'draftkings') {
     column <- 'Position'
@@ -97,13 +96,13 @@ add_tidy_position <- function(df,
   if (platform == 'fanduel') {
     column <- 'Position'
   }
-  if (platform == 'rotogrinders') {
+  if (platform %in% c('fantasypros', 'rotogrinders')) {
     column <- 'position'
   }
   df$tidy_position <- df[[column]]
   df$tidy_position <- tolower(trimws(df$tidy_position))
   df$tidy_position <- gsub("[^[:alnum:]]", "", df$tidy_position)
-  
+
   return(df)
 }
 

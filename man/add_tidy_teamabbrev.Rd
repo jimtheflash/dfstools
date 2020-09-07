@@ -4,9 +4,12 @@
 \alias{add_tidy_teamabbrev}
 \title{Append column of tidy team abbreviations}
 \usage{
-add_tidy_teamabbrev(df = NULL, lookup = system.file("extdata",
-  "teamabbrev_lu.csv", package = "dfstools"), platform = NULL,
-  sport = NULL)
+add_tidy_teamabbrev(
+  df = NULL,
+  lookup = system.file("extdata", "teamabbrev_lu.csv", package = "dfstools"),
+  platform = NULL,
+  sport = NULL
+)
 }
 \arguments{
 \item{df}{data.frame with team abbreviation column}
