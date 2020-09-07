@@ -37,4 +37,5 @@ rsconnect/
 .Rproj.user
 
 # osx files
+*.DS_Store
 .DS_Store
