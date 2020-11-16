@@ -1,5 +1,5 @@
 import sys
-from pulp import PULP_CBC_CMD, CPLEX_PY, CPLEX_CMD, PULP_CHOCO_CMD
+# from pulp import PULP_CBC_CMD, CPLEX_PY, CPLEX_CMD, PULP_CHOCO_CMD
 from pydfs_lineup_optimizer.solvers.pulp_solver import PuLPSolver
 from pydfs_lineup_optimizer import get_optimizer, Site, Sport, CSVLineupExporter
 
@@ -15,6 +15,10 @@ maxrepplyr = sys.argv[6]
 # Site
 if platform == 'draftkings':
     SITE = Site.DRAFTKINGS
+elif platform == 'draftkings-showdown':
+    SITE = Site.DRAFTKINGS_CAPTAIN_MODE
+elif platform == 'draftkings-tiers':
+    SITE = Site.DRAFTKINGS_TIERS
 elif platform == 'fanduel':
     SITE = Site.FANDUEL
 # Sport
@@ -24,13 +28,13 @@ elif sport == 'nba':
     SPORT = Sport.BASKETBALL
     
 # make optimizer
-class CustomPuLPSolver(PuLPSolver):
-    LP_SOLVER = PULP_CBC_CMD(threads=8, options=['preprocess off'], msg=False)
-    # LP_SOLVER = PULP_CHOCO_CMD()
+# class CustomPuLPSolver(PuLPSolver):
+#     LP_SOLVER = PULP_CBC_CMD(threads=8, options=['preprocess off'], msg=False)
+#     LP_SOLVER = PULP_CHOCO_CMD()
 
 # define optimizer
-optimizer = get_optimizer(site = SITE, sport = SPORT, solver=CustomPuLPSolver)
-# optimizer = get_optimizer(site = SITE, sport = SPORT)
+# optimizer = get_optimizer(site = SITE, sport = SPORT, solver=CustomPuLPSolver)
+optimizer = get_optimizer(site = SITE, sport = SPORT)
 optimizer.load_players_from_csv(input_string)
 optimizer.set_max_repeating_players(int(maxrepplyr))
 

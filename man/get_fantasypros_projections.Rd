@@ -10,15 +10,15 @@ get_fantasypros_projections(
   supported_sports = c("nfl"),
   scraped_headers = c("rank", "wsis", "name", "opp", "best", "worst", "avg", "stdev",
     "proj", "notes"),
-  csv_headers = c("rank", "tier", "wsis", "name", "team", "opp", "best", "worst",
-    "avg", "stdev", "proj"),
+  csv_headers = c("RK", "PLAYER NAME", "TEAM", "OPP", "MATCHUP (?)", "START/SIT",
+    "PROJ. FPTS"),
   nfl_positions = c("qb", "rb", "wr", "te", "dst")
 )
 }
 \arguments{
 \item{sport}{character, which sport to use? supports nfl so far, with nba on the way}
 
-\item{from_csv}{character, if not NULL then path to the csv with projections}
+\item{from_csv}{character, if not NULL then path to the csv or csv's with projections}
 
 \item{supported_sports}{character vector of leagues supported}
 

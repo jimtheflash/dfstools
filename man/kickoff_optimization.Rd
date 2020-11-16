@@ -15,7 +15,8 @@ kickoff_optimization(
   ENTRY_PATH = NULL,
   TEMP_PATH = NULL,
   MAX_EXP = NULL,
-  MAX_REPEATED_PLAYERS = NULL
+  MAX_REPEATED_PLAYERS = NULL,
+  PY_PATH = NULL
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ kickoff_optimization(
 \item{MAX_EXP}{numeric, maximum exposure to any individual player in lineups}
 
 \item{MAX_REPEATED_PLAYERS}{numeric, maximum number of repeated combinations of players}
+
+\item{PY_PATH}{string to python}
 }
 \value{
 outputs a csv to be entered into dfs site

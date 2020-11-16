@@ -4,7 +4,12 @@
 \alias{parse_salaries}
 \title{Parse dfs player salary files}
 \usage{
-parse_salaries(path = NULL, sport = NULL, platform = NULL)
+parse_salaries(
+  path = NULL,
+  sport = NULL,
+  platform = NULL,
+  remove_postponed_games = TRUE
+)
 }
 \arguments{
 \item{path}{character, path to salary file}
@@ -12,6 +17,8 @@ parse_salaries(path = NULL, sport = NULL, platform = NULL)
 \item{sport}{character, which sports league? Supports nfl and nba for draftkings}
 
 \item{platform}{charcter, which dfs platform? Supports draftkings}
+
+\item{remove_postponed_games}{logical should games that are postponed by removed from slate? default is TRUE}
 }
 \value{
 data.frame of players with salary info

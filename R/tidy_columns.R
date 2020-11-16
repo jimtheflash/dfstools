@@ -12,6 +12,9 @@ add_tidy_teamabbrev <- function(df = NULL,
   # read the lookup table
   lu <- read.csv(lookup, stringsAsFactors = FALSE)
   # engineer the platform team abbreviation column names
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
+    platform <- 'draftkings'
+  }
   platform_col <- paste0(platform, '_teamabbrev')
   target <- paste0(sport, '_teamabbrev')
   # subset lookup table for joining
@@ -52,7 +55,7 @@ add_tidy_playernames <- function(df,
                                  lookup = NULL,
                                  platform = NULL, sport = NULL) {
   # set the column in df based on platform and sport
-  if (platform == 'draftkings') {
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
     column <- 'Name'
     }
   if (platform == 'fanduel') {
@@ -90,7 +93,7 @@ add_tidy_position <- function(df,
                               platform = NULL, sport = NULL) {
 
   # set the column in df based on platform and sport
-  if (platform == 'draftkings') {
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
     column <- 'Position'
   }
   if (platform == 'fanduel') {
@@ -123,7 +126,7 @@ add_tidy_projection <- function(df, column = NULL) {
 #' @return data.frame with column "tidy_contest" appended for easier counting
 #' @export
 add_tidy_contest <- function(df, platform = NULL, sport = NULL) {
-  if (platform == 'draftkings') {
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
     column <- 'Contest.ID'
   }
   if (platform == 'fanduel') {
@@ -140,7 +143,7 @@ add_tidy_contest <- function(df, platform = NULL, sport = NULL) {
 #' @return data.frame with column "tidy_entry" appended for easier counting
 #' @export
 add_tidy_entry <- function(df, platform = NULL, sport = NULL) {
-  if (platform == 'draftkings') {
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
     column <- 'Entry.ID'
   }
   if (platform == 'fanduel') {

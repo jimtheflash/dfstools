@@ -4,12 +4,21 @@
 \alias{structure_optimized_entries}
 \title{Insert optimized lineups into entries}
 \usage{
-structure_optimized_entries(entries = NULL, optimized_lineups = NULL)
+structure_optimized_entries(
+  entries = NULL,
+  optimized_lineups = NULL,
+  platform = NULL,
+  sport = NULL
+)
 }
 \arguments{
 \item{entries}{data.frame of entries}
 
 \item{optimized_lineups}{data.frame of optimized lineups}
+
+\item{platform}{character platform}
+
+\item{sport}{character sport}
 }
 \value{
 data.frame of entries with optimized lineups

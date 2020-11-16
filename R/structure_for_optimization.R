@@ -15,7 +15,7 @@ structure_for_optimization <- function(salaries = NULL, projections = NULL,
   merged <- merge(salaries, projections, by = tidy_cols)
 
   # identify the points column by platform and sport
-  if (platform == 'draftkings') {
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
     if (sport == 'nfl') {
       column <- 'AvgPointsPerGame'
     }

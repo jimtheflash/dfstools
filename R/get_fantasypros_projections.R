@@ -1,6 +1,6 @@
 #' Get dfs player projections from fantasypros.com
 #' @param sport character, which sport to use? supports nfl so far, with nba on the way
-#' @param from_csv character, if not NULL then path to the csv with projections
+#' @param from_csv character, if not NULL then path to the csv or csv's with projections
 #' @param supported_sports character vector of leagues supported
 #' @param csv_headers character, names of the columns in rotogrinders csv's
 #' @param nfl_positions character, position names
@@ -10,7 +10,7 @@ get_fantasypros_projections <- function(sport = NULL,
                                         from_csv = NULL,
                                         supported_sports  = c('nfl'),
                                         scraped_headers = c('rank', 'wsis', 'name', 'opp', 'best', 'worst', 'avg', 'stdev', 'proj', 'notes'),
-                                        csv_headers = c('rank', 'tier', 'wsis', 'name', 'team', 'opp', 'best', 'worst', 'avg', 'stdev', 'proj'),
+                                        csv_headers = c("RK","PLAYER NAME", "TEAM", "OPP","MATCHUP (?)","START/SIT","PROJ. FPTS"),
                                         nfl_positions  = c('qb', 'rb', 'wr', 'te', 'dst')) {
 
   if (!(sport %in% supported_sports)) {
@@ -18,8 +18,52 @@ get_fantasypros_projections <- function(sport = NULL,
   }
 
   if (!is.null(from_csv)) {
+    output_list <- list()
+    for (i in from_csv) {
+      proj <- read.csv(i, col.names = csv_headers, stringsAsFactors = FALSE)
 
-    output_df <- read.csv(from_csv, col.names = csv_headers, stringsAsFactors = FALSE)
+      # set the position
+      if (grepl('RB', i)) {
+        pos <- 'RB'
+      }
+      if (grepl('WR', i)) {
+        pos <- 'WR'
+      }
+      if (grepl('TE', i)) {
+        pos <- 'TE'
+      }
+      if (grepl('QB', i)) {
+        pos <- 'QB'
+      }
+      if (grepl('DST', i)) {
+        pos <- 'DST'
+      }
+      proj$position <- pos
+
+      # set the team if it isn't its own column
+      # teams <- unlist(stringr::str_match_all(proj$PLAYER.NAME, "(?<=\\().+?(?=\\))"))
+      # proj$TEAM <- teams
+
+      # set team name column for easier cleaning
+      proj$teamabbrev <- proj$TEAM
+
+      # set the name
+      names_split <- strsplit(proj$PLAYER.NAME, ' (', fixed = TRUE)
+      player_names <- unlist(lapply(names_split, '[[', 1))
+      proj$name <- player_names
+
+      # store the output
+      output_list[[i]] <- proj
+    }
+
+    output_df <- do.call(rbind, output_list)
+
+    # fix proj here instead of in loop cuz of naming :-|
+    output_df$proj <- as.numeric(output_df$PROJ..FPTS)
+
+    # get rid of NA projections
+    output_df <- output_df[!is.na(output_df$proj), ]
+
     return(output_df)
 
   } else {
