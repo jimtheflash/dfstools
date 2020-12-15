@@ -38,9 +38,14 @@ structure_optimized_entries <- function(entries = NULL, optimized_lineups = NULL
   structured_df$FPPG <- NULL
 
   # FIX NAMES based on platform
-  if (platform == 'draftkings-tiers') {
+  if (platform == 'draftkings-tiers-pm') {
     names(structured_df) <-
       c('Entry ID', 'Contest Name', 'Contest ID', 'Entry Fee', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'total_pts')
+  }
+
+  if (platform == 'draftkings-tiers') {
+    names(structured_df) <-
+      c('Entry ID', 'Contest Name', 'Contest ID', 'Entry Fee', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'total_pts')
   }
 
   if (platform == 'draftkings-showdown') {

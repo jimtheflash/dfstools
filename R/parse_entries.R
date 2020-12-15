@@ -10,7 +10,7 @@ parse_entries <- function(path = NULL, sport = NULL, platform = NULL) {
   entries$X <- NULL
   entries$Instructions <- NULL
 
-  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers')) {
+  if (platform %in% c('draftkings', 'draftkings-showdown', 'draftkings-tiers', 'draftkings-tiers-pm')) {
     entries$Entry.ID <- suppressWarnings(as.numeric(entries$Entry.ID))
     entries <- entries[!is.na(entries$Entry.ID), ]
   }

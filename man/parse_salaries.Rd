@@ -14,7 +14,7 @@ parse_salaries(
 \arguments{
 \item{path}{character, path to salary file}
 
-\item{sport}{character, which sports league? Supports nfl and nba for draftkings}
+\item{sport}{character, which sports league? Supports nfl, nba, golf for draftkings}
 
 \item{platform}{charcter, which dfs platform? Supports draftkings}
 

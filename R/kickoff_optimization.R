@@ -59,6 +59,12 @@ kickoff_optimization <- function(SPORT = NULL, PLATFORM = NULL,
                                                 max_repeated_players = MAX_REPEATED_PLAYERS,
                                                 platform = PLATFORM, sport = SPORT)
 
+  } else if (PLATFORM == 'draftkings-tiers-pm') {
+
+    optimized_lineups <- create_optimized_tiers_pm(to_optimize = to_optimize, lineups = LINEUPS,
+                                                max_exposure = MAX_EXP,
+                                                max_repeated_players = MAX_REPEATED_PLAYERS,
+                                                platform = PLATFORM, sport = SPORT)
   } else {
 
     to_optim_path <- paste0(TEMP_PATH, 'to_optim.csv')
